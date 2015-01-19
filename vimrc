@@ -73,30 +73,15 @@ if has("gui_gvim")
     colorscheme molokai
     highlight SignColumn guibg=#272822
 
-    " Open ctrlp with cmd+p
-    " let g:ctrlp_map = '<D-p>'
-
-    " Open goto symbol on current buffer
-    nmap <D-r> :MyCtrlPTag<cr>
-    imap <D-r> <esc>:MyCtrlPTag<cr>
-
-    " Open goto symbol on all buffers
-    nmap <D-R> :CtrlPBufTagAll<cr>
-    imap <D-R> <esc>:CtrlPBufTagAll<cr>
-
-    " Open goto file
-    nmap <D-t> :CtrlP<cr>
-    imap <D-t> <esc>:CtrlP<cr>
-
     " Comment lines with cmd+/
-    map <D-/> :TComment<cr>
-    vmap <D-/> :TComment<cr>gv
+    map <C-/> :TComment<cr>
+    vmap <C-/> :TComment<cr>gv
 
     " Indent lines with cmd+[ and cmd+]
-    nmap <D-]> >>
-    nmap <D-[> <<
-    vmap <D-[> <gv
-    vmap <D-]> >gv
+    nmap <C-]> >>
+    nmap <C-[> <<
+    vmap <C-[> <gv
+    vmap <C-]> >gv
 
     " This mapping makes Ctrl-Tab switch between tabs.
     " Ctrl-Shift-Tab goes the other way.
@@ -104,15 +89,15 @@ if has("gui_gvim")
     noremap <C-S-Tab> :tabprev<CR>
 
     " switch between tabs with cmd+1, cmd+2,..."
-    map <D-1> 1gt
-    map <D-2> 2gt
-    map <D-3> 3gt
-    map <D-4> 4gt
-    map <D-5> 5gt
-    map <D-6> 6gt
-    map <D-7> 7gt
-    map <D-8> 8gt
-    map <D-9> 9gt
+    map <C-1> 1gt
+    map <C-2> 2gt
+    map <C-3> 3gt
+    map <C-4> 4gt
+    map <C-5> 5gt
+    map <C-6> 6gt
+    map <C-7> 7gt
+    map <C-8> 8gt
+    map <C-9> 9gt
 
     " until we have default MacVim shortcuts this is the only way to use it in
     " insert mode
@@ -335,53 +320,6 @@ com! JSONFormat %!python -m json.tool
 " Plugin configs 			    			"
 " ----------------------------------------- "
 
-" ==================== CtrlP ====================
-let g:ctrlp_cmd = 'CtrlPMRU'		
-let g:ctrlp_match_func  = {'match' : 'matcher#cmatch'}
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_max_height = 10		" maxiumum height of match window
-let g:ctrlp_switch_buffer = 'et'	" jump to a file if it's open already
-let g:ctrlp_mruf_max=450 		" number of recently opened files
-let g:ctrlp_max_files=0  		" do not limit the number of searchable files
-let g:ctrlp_use_caching = 1
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-
-func! MyPrtMappings()
-    let g:ctrlp_prompt_mappings = {
-                \ 'AcceptSelection("e")': ['<c-t>'],
-                \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-                \ }
-endfunc
-
-func! MyCtrlPTag()
-    let g:ctrlp_prompt_mappings = {
-                \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
-                \ 'AcceptSelection("t")': ['<c-t>'],
-                \ }
-    CtrlPBufTag
-endfunc
-
-let g:ctrlp_buffer_func = { 'exit': 'MyPrtMappings' }
-com! MyCtrlPTag call MyCtrlPTag()
-
-let g:ctrlp_buftag_types = {
-            \ 'go'     	   : '--language-force=go --golang-types=ftv',
-            \ 'coffee'     : '--language-force=coffee --coffee-types=cmfvf',
-            \ 'markdown'   : '--language-force=markdown --markdown-types=hik',
-            \ 'objc'       : '--language-force=objc --objc-types=mpci',
-            \ 'rc'         : '--language-force=rust --rust-types=fTm'
-            \ }
-
-
-" get me a list of files in the current dir
-if has("gui_macvim")
-    nmap <C-f> :CtrlPCurWD<cr>
-    imap <C-f> <esc>:CtrlPCurWD<cr>
-endif
-
-
 " ==================== YouCompleteMe ====================
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_min_num_of_chars_for_completion = 1
@@ -404,12 +342,12 @@ vnoremap <leader>gb :Gblame<CR>
 
 
 " ==================== CommandT ====================
-let g:CommandTMaxHeight = 20
-let g:CommandTMaxFiles = 500000
-let g:CommandTMatchWindowReverse = 1
-let g:CommandTMaxCachedDirectories = 0
-let g:CommandTAcceptSelectionTabMap = '<CR>'
-let g:CommandTHighlightColor = 'Typedef'
+"let g:CommandTMaxHeight = 20
+"let g:CommandTMaxFiles = 500000
+"let g:CommandTMatchWindowReverse = 1
+"let g:CommandTMaxCachedDirectories = 0
+"let g:CommandTAcceptSelectionTabMap = '<CR>'
+"let g:CommandTHighlightColor = 'Typedef'
 
 " ==================== Vim-go ====================
 let g:go_fmt_fail_silently = 1
@@ -431,9 +369,9 @@ au FileType go nmap <Leader>d <Plug>(go-doc)
 let g:UltiSnipsExpandTrigger="<c-j>"
 
 nmap <Leader>m :BuffergatorToggle<cr>
-nmap <C-p> :CommandT<cr>
+"nmap <C-p> :CommandT<cr>
 nmap <F8> :TagbarToggle<CR>
-imap <C-p> <esc>:CommandT<cr>
+"imap <C-p> <esc>:CommandT<cr>
 imap jj <Esc>
 
 au BufWritePost *.go GoImports

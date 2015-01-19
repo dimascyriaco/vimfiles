@@ -4,7 +4,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'git://git.wincent.com/command-t.git'
+"Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdcommenter'
@@ -21,7 +21,6 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'JazzCore/ctrlp-cmatcher'
 Plugin 'fatih/vim-go'
 Plugin 'buffergator'
-Plugin 'bling/vim-airline'
 
 call vundle#end()            " required
 
