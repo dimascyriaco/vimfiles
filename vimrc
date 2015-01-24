@@ -7,11 +7,11 @@ filetype plugin indent on    " required
 " This loads all the plugins specified in ~/.vim/vundle.vim
 " Use Vundle plugin to manage all other plugins
 if filereadable(expand("~/.vim/vundle.vim"))
-  source ~/.vim/vundle.vim
+	source ~/.vim/vundle.vim
 endif
 
 for fpath in split(globpath('~/.vim/settings', '*.vim'), '\n')
-  exe 'source' fpath
+	exe 'source' fpath
 endfor
 
 "
@@ -57,65 +57,65 @@ set synmaxcol=128
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 if has("gui_gvim")
-    " No toolbars, menu or scrollbars in the GUI
-    set guifont=Source\ Code\ Pro:h13
-    set clipboard+=unnamed
-    set vb t_vb=
-    set guioptions-=m  "no menu
-    set guioptions-=T  "no toolbar
-    set guioptions-=l
-    set guioptions-=L
-    set guioptions-=r  "no scrollbar
-    set guioptions-=R
+	" No toolbars, menu or scrollbars in the GUI
+	set guifont=source\ code\ pro:h13
+	set clipboard+=unnamed
+	set vb t_vb=
+	set guioptions-=m  "no menu
+	set guioptions-=t  "no toolbar
+	set guioptions-=l
+	set guioptions-=l
+	set guioptions-=r  "no scrollbar
+	set guioptions-=R
 
-    let macvim_skip_colorscheme=1
-    let g:molokai_original=1
-    colorscheme molokai
-    highlight SignColumn guibg=#272822
+	let macvim_skip_colorscheme=1
+	let g:molokai_original=1
+	colorscheme molokai
+	highlight SignColumn guibg=#272822
 
-    " Comment lines with cmd+/
-    map <C-/> :TComment<cr>
-    vmap <C-/> :TComment<cr>gv
+	" Comment lines with cmd+/
+	map <C-/> :TComment<cr>
+	vmap <C-/> :TComment<cr>gv
 
-    " Indent lines with cmd+[ and cmd+]
-    nmap <C-]> >>
-    nmap <C-[> <<
-    vmap <C-[> <gv
-    vmap <C-]> >gv
+	" Indent lines with cmd+[ and cmd+]
+	nmap <C-]> >>
+	nmap <C-[> <<
+	vmap <C-[> <gv
+	vmap <C-]> >gv
 
-    " This mapping makes Ctrl-Tab switch between tabs.
-    " Ctrl-Shift-Tab goes the other way.
-    noremap <C-Tab> :tabnext<CR>
-    noremap <C-S-Tab> :tabprev<CR>
+	" This mapping makes Ctrl-Tab switch between tabs.
+	" Ctrl-Shift-Tab goes the other way.
+	noremap <C-Tab> :tabnext<CR>
+	noremap <C-S-Tab> :tabprev<CR>
 
-    " switch between tabs with cmd+1, cmd+2,..."
-    map <C-1> 1gt
-    map <C-2> 2gt
-    map <C-3> 3gt
-    map <C-4> 4gt
-    map <C-5> 5gt
-    map <C-6> 6gt
-    map <C-7> 7gt
-    map <C-8> 8gt
-    map <C-9> 9gt
+	" switch between tabs with cmd+1, cmd+2,..."
+	map <C-1> 1gt
+	map <C-2> 2gt
+	map <C-3> 3gt
+	map <C-4> 4gt
+	map <C-5> 5gt
+	map <C-6> 6gt
+	map <C-7> 7gt
+	map <C-8> 8gt
+	map <C-9> 9gt
 
-    " until we have default MacVim shortcuts this is the only way to use it in
-    " insert mode
-    imap <D-1> <esc>1gt
-    imap <D-2> <esc>2gt
-    imap <D-3> <esc>3gt
-    imap <D-4> <esc>4gt
-    imap <D-5> <esc>5gt
-    imap <D-6> <esc>6gt
-    imap <D-7> <esc>7gt
-    imap <D-8> <esc>8gt
-    imap <D-9> <esc>9gt
+	" until we have default MacVim shortcuts this is the only way to use it in
+	" insert mode
+	imap <D-1> <esc>1gt
+	imap <D-2> <esc>2gt
+	imap <D-3> <esc>3gt
+	imap <D-4> <esc>4gt
+	imap <D-5> <esc>5gt
+	imap <D-6> <esc>6gt
+	imap <D-7> <esc>7gt
+	imap <D-8> <esc>8gt
+	imap <D-9> <esc>9gt
 else
-    syntax enable
-    " set background=dark
-    let g:molokai_original=1
-    colorscheme molokai
-    set t_Co=256
+	syntax enable
+	" set background=dark
+	let g:molokai_original=1
+	colorscheme molokai
+	set t_Co=256
 endif
 
 " Stop completion with enter, in addition to default ctrl+y
@@ -164,18 +164,18 @@ nmap <leader>w :w!<cr>
 
 " http://stackoverflow.com/questions/4298910/vim-close-buffer-but-not-split-window
 function! CloseSplitOrDeleteBuffer()
-  let curNr = winnr()
-  let curBuf = bufnr('%')
-  wincmd w                    " try to move on next split
-  if winnr() == curNr         " there is no split
-    exe 'bdelete'
-  elseif curBuf != bufnr('%') " there is split with another buffer
-    wincmd W                  " move back
-    exe 'bdelete'
-  else                        " there is split with same buffer"
-    wincmd W
-    wincmd c
-  endif
+	let curNr = winnr()
+	let curBuf = bufnr('%')
+	wincmd w                    " try to move on next split
+	if winnr() == curNr         " there is no split
+		exe 'bdelete'
+	elseif curBuf != bufnr('%') " there is split with another buffer
+		wincmd W                  " move back
+		exe 'bdelete'
+	else                        " there is split with same buffer"
+		wincmd W
+		wincmd c
+	endif
 endfunction
 
 nnoremap <leader>q :call CloseSplitOrDeleteBuffer()<CR>
@@ -253,10 +253,10 @@ nnoremap <leader>D :diffoff!<cr>
 " Visual Mode */# from Scrooloose {{{
 
 function! s:VSetSearch()
-  let temp = @@
-  norm! gvy
-  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-  let @@ = temp
+	let temp = @@
+	norm! gvy
+	let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+	let @@ = temp
 endfunction
 
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
@@ -271,9 +271,9 @@ au BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
 au BufNewFile,BufRead *.md setlocal noet ts=4 sw=4 
 
 augroup filetypedetect
-    au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
-    au BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
-    "au BufWritePost* GoImports setf go
+	au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
+	au BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
+	"au BufWritePost* GoImports setf go
 augroup END
 
 au FileType nginx setlocal noet ts=4 sw=4 sts=4
@@ -373,6 +373,7 @@ nmap <Leader>m :BuffergatorToggle<cr>
 nmap <F8> :TagbarToggle<CR>
 "imap <C-p> <esc>:CommandT<cr>
 imap jj <Esc>
+map <Leader>cc :TComment<cr>
 
 au BufWritePost *.go GoImports
 au BufWritePost *.go GoLint
@@ -380,3 +381,4 @@ au BufWritePost *.go GoLint
 let g:NERDTreeWinSize = 20
 set guioptions-=T
 
+set runtimepath+=/home/dimas/code/mpc-vim/
