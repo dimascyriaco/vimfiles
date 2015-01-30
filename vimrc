@@ -375,9 +375,6 @@ nmap <F8> :TagbarToggle<CR>
 imap jj <Esc>
 map <Leader>cc :TComment<cr>
 
-au BufWritePost *.go GoImports
-au BufWritePost *.go GoLint
-
 let g:NERDTreeWinSize = 20
 set guioptions-=T
 
