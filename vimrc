@@ -56,67 +56,6 @@ set synmaxcol=128
 
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
-if has("gui_gvim")
-	" No toolbars, menu or scrollbars in the GUI
-	set guifont=source\ code\ pro:h13
-	set clipboard+=unnamed
-	set vb t_vb=
-	set guioptions-=m  "no menu
-	set guioptions-=t  "no toolbar
-	set guioptions-=l
-	set guioptions-=l
-	set guioptions-=r  "no scrollbar
-	set guioptions-=R
-
-	let macvim_skip_colorscheme=1
-	let g:molokai_original=1
-	colorscheme molokai
-	highlight SignColumn guibg=#272822
-
-	" Comment lines with cmd+/
-	map <C-/> :TComment<cr>
-	vmap <C-/> :TComment<cr>gv
-
-	" Indent lines with cmd+[ and cmd+]
-	nmap <C-]> >>
-	nmap <C-[> <<
-	vmap <C-[> <gv
-	vmap <C-]> >gv
-
-	" This mapping makes Ctrl-Tab switch between tabs.
-	" Ctrl-Shift-Tab goes the other way.
-	noremap <C-Tab> :tabnext<CR>
-	noremap <C-S-Tab> :tabprev<CR>
-
-	" switch between tabs with cmd+1, cmd+2,..."
-	map <C-1> 1gt
-	map <C-2> 2gt
-	map <C-3> 3gt
-	map <C-4> 4gt
-	map <C-5> 5gt
-	map <C-6> 6gt
-	map <C-7> 7gt
-	map <C-8> 8gt
-	map <C-9> 9gt
-
-	" until we have default MacVim shortcuts this is the only way to use it in
-	" insert mode
-	imap <D-1> <esc>1gt
-	imap <D-2> <esc>2gt
-	imap <D-3> <esc>3gt
-	imap <D-4> <esc>4gt
-	imap <D-5> <esc>5gt
-	imap <D-6> <esc>6gt
-	imap <D-7> <esc>7gt
-	imap <D-8> <esc>8gt
-	imap <D-9> <esc>9gt
-else
-	syntax enable
-	" set background=dark
-	let g:molokai_original=1
-	colorscheme molokai
-	set t_Co=256
-endif
 
 " Stop completion with enter, in addition to default ctrl+y
 imap <expr> <CR> pumvisible() ? "\<c-y>" : "<Plug>delimitMateCR"
@@ -127,27 +66,6 @@ imap <expr> <CR> pumvisible() ? "\<c-y>" : "<Plug>delimitMateCR"
 " i.e: <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
-
-" This trigger takes advantage of the fact that the quickfix window can be
-" easily distinguished by its file-type, qf. The wincmd J command is
-" equivalent to the Ctrl+W, Shift+J shortcut telling Vim to move a window to
-" the very bottom (see :help :wincmd and :help ^WJ).
-autocmd FileType qf wincmd J
-
-"Dont show me any output when I build something
-"Because I am using quickfix for errors
-nmap <leader>m :make<CR><enter>
-
-" Some useful quickfix shortcuts
-":cc      see the current error
-":cn      next error
-":cp      previous error
-":clist   list all errors
-map <C-n> :cn<CR>
-map <C-m> :cp<CR>
-
-" Close quickfix easily
-nnoremap <leader>a :cclose<CR>
 
 " Remove search highlight
 nnoremap <leader><space> :nohlsearch<CR>
@@ -206,9 +124,6 @@ nnoremap <leader>c :TComment<cr>
 " search will center on the line it's found in.
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
-"nnoremap <leader>. :lcd %:p:h<CR>
-autocmd BufEnter * silent! lcd %:p:h
 
 " trim all whitespaces away
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -273,7 +188,6 @@ au BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
 augroup filetypedetect
 	au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
 	au BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
-	"au BufWritePost* GoImports setf go
 augroup END
 
 au FileType nginx setlocal noet ts=4 sw=4 sts=4
@@ -369,6 +283,8 @@ au FileType go nmap <Leader>d <Plug>(go-doc)
 let g:UltiSnipsExpandTrigger="<c-j>"
 
 nmap <Leader>m :BuffergatorToggle<cr>
+nmap <Leader>n :NERDTreeToggle<cr>
+
 "nmap <C-p> :CommandT<cr>
 nmap <F8> :TagbarToggle<CR>
 "imap <C-p> <esc>:CommandT<cr>
@@ -379,3 +295,17 @@ let g:NERDTreeWinSize = 20
 set guioptions-=T
 
 set runtimepath+=/home/dimas/code/mpc-vim/
+
+syntax enable
+colorscheme molokai
+set t_Co=256
+
+au BufRead,BufNewFile *.go set filetype=go 
+
+set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
+
+" Always show statusline
+set laststatus=2
+
+" Use 256 colours (Use this setting only if your terminal supports 256 colours)
+set t_Co=256
