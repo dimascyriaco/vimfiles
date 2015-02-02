@@ -56,11 +56,6 @@ set synmaxcol=128
 
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
-
-" Stop completion with enter, in addition to default ctrl+y
-imap <expr> <CR> pumvisible() ? "\<c-y>" : "<Plug>delimitMateCR"
-
-
 " This comes first, because we have mappings that depend on leader
 " With a map leader it's possible to do extra key combinations
 " i.e: <leader>w saves the current file
@@ -194,7 +189,6 @@ au FileType nginx setlocal noet ts=4 sw=4 sts=4
 
 " Go settings
 au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
-" au BufNewFile,BufRead *.go setlocal noet ts=8 sw=8 sts=8
 
 " coffeescript settings
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
@@ -239,29 +233,11 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 
 
-" ==================== ChooseWin ====================
-nmap  -  <Plug>(choosewin)
-
-
-" ==================== DelimitMate ====================
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_expand_space = 1
-
-
 " ==================== Fugitive ====================
 nnoremap <leader>ga :Git add %:p<CR><CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gb :Gblame<CR>
 vnoremap <leader>gb :Gblame<CR>
-
-
-" ==================== CommandT ====================
-"let g:CommandTMaxHeight = 20
-"let g:CommandTMaxFiles = 500000
-"let g:CommandTMatchWindowReverse = 1
-"let g:CommandTMaxCachedDirectories = 0
-"let g:CommandTAcceptSelectionTabMap = '<CR>'
-"let g:CommandTHighlightColor = 'Typedef'
 
 " ==================== Vim-go ====================
 let g:go_fmt_fail_silently = 1
@@ -271,7 +247,7 @@ let g:go_fmt_command = "gofmt"
 au FileType go nmap gd <Plug>(go-def)
 au FileType go nmap <Leader>s <Plug>(go-def-split)
 au FileType go nmap <Leader>v <Plug>(go-def-vertical)
-au FileType go nmap <Leader>t <Plug>(go-def-tab)
+au FileType go nmap <Leader>t <Plug>(go-test)
 
 au FileType go nmap <Leader>i <Plug>(go-info)
 
@@ -311,3 +287,5 @@ set laststatus=2
 set t_Co=256
 
 let g:airline_powerline_fonts = 1
+let g:go_fmt_command = "goimports"
+au BufWritePost *.go :GoLint
