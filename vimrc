@@ -16,12 +16,17 @@ endfor
 
 "
 " Settings
-" 
+"
+set relativenumber
 set noerrorbells                " No beeps
 set number                      " Show line numbers
 set backspace=indent,eol,start  " Makes backspace key more powerful.
 set showcmd                     " Show me what I'm typing
 set showmode                    " Show current mode.
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
 
 set noswapfile                  " Don't use swapfile
 set nobackup            	    " Don't create annoying backup files
@@ -35,7 +40,7 @@ set laststatus=2
 set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
 
 "http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
-set clipboard^=unnamed 
+set clipboard^=unnamed
 set clipboard^=unnamedplus
 
 set noshowmatch                 " Do not show matching brackets by flickering
@@ -45,7 +50,7 @@ set incsearch                   " Shows the match while typing
 set hlsearch                    " Highlight found searches
 set ignorecase                  " Search case insensitive...
 set smartcase                   " ... but not when search pattern contains upper case characters
-set ttyfast 
+set ttyfast
 
 " speed up syntax highlighting
 set nocursorcolumn
@@ -111,10 +116,6 @@ nnoremap <leader>f *N
 
 nnoremap <F6> :setlocal spell! spell?<CR>
 
-
-" Select search pattern howewever do not jump to the next one
-nnoremap <leader>c :TComment<cr>
-
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
 nnoremap n nzzzv
@@ -177,8 +178,8 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 " ----------------------------------------- "
 
 au BufNewFile,BufRead *.vim setlocal noet ts=2 sw=2 sts=2
-au BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4 
-au BufNewFile,BufRead *.md setlocal noet ts=4 sw=4 
+au BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
+au BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
 
 augroup filetypedetect
 	au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
@@ -198,6 +199,9 @@ autocmd BufNewFile,BufReadPost *.scala setl shiftwidth=2 expandtab
 
 " lua settings
 autocmd BufNewFile,BufRead *.lua setlocal noet ts=4 sw=4 sts=4
+
+" yaml settings
+autocmd BufNewFile,BufRead *.yml setlocal noet ts=2 sw=2 sts=2
 
 
 " Wildmenu completion {{{
@@ -241,33 +245,33 @@ vnoremap <leader>gb :Gblame<CR>
 
 " ==================== Vim-go ====================
 let g:go_fmt_fail_silently = 1
-let g:go_fmt_command = "gofmt"
-
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
 
 au FileType go nmap gd <Plug>(go-def)
 au FileType go nmap <Leader>s <Plug>(go-def-split)
 au FileType go nmap <Leader>v <Plug>(go-def-vertical)
 au FileType go nmap <Leader>t <Plug>(go-test)
-
 au FileType go nmap <Leader>i <Plug>(go-info)
-
-au FileType go nmap  <leader>r  <Plug>(go-run)
-au FileType go nmap  <leader>b  <Plug>(go-build)
-
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <Leader>d <Plug>(go-doc)
 
+" ================= UltiSnips ====================
 let g:UltiSnipsExpandTrigger="<c-j>"
+au FileType go UltiSnipsAddFiletypes go.go
 
+" ============= Leader Commands ==================
 nmap <Leader>m :BuffergatorToggle<cr>
 nmap <Leader>n :NERDTreeToggle<cr>
 
-"nmap <C-p> :CommandT<cr>
 nmap <F8> :TagbarToggle<CR>
-"imap <C-p> <esc>:CommandT<cr>
-imap jj <Esc>
-map <Leader>cc :TComment<cr>
 
-let g:NERDTreeWinSize = 20
+imap jj <Esc>
+
+let g:NERDTreeWinSize = 30
 set guioptions-=T
 
 set runtimepath+=/home/dimas/code/mpc-vim/
@@ -276,7 +280,9 @@ syntax enable
 colorscheme molokai
 set t_Co=256
 
-au BufRead,BufNewFile *.go set filetype=go 
+au BufRead,BufNewFile *.go set filetype=go
+au BufRead,BufNewFile *.coffee set filetype=coffee
+au BufRead,BufNewFile *.html set filetype=html
 
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 
@@ -287,5 +293,20 @@ set laststatus=2
 set t_Co=256
 
 let g:airline_powerline_fonts = 1
-let g:go_fmt_command = "goimports"
 au BufWritePost *.go :GoLint
+let g:buffergator_autoexpand_on_split = 0
+
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 11
+  endif
+endif
+
+" Beautify Javascript files on save
+au BufWritePost *.js :call JsBeautify()
+" Removing trailling spaces on save
+autocmd BufWritePre * :%s/\s\+$//e
+
+" unmap <Leader>cc
+map <Leader>cc :Commentary<cr>
+autocmd FileType go set commentstring=//\ %s
