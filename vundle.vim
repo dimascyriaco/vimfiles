@@ -24,7 +24,10 @@ Plugin 'einars/js-beautify'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-repeat'
-
+Plugin 'bendavis78/vim-polymer'
+Plugin 'othree/html5.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'jelera/vim-javascript-syntax'
 
 call vundle#end()            " required
 

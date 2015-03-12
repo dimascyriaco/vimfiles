@@ -1,7 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
-filetype plugin indent on    " required
 
 " =============== Vundle Initialization ===============
 " This loads all the plugins specified in ~/.vim/vundle.vim
@@ -9,6 +8,8 @@ filetype plugin indent on    " required
 if filereadable(expand("~/.vim/vundle.vim"))
 	source ~/.vim/vundle.vim
 endif
+
+filetype plugin indent on     " required
 
 for fpath in split(globpath('~/.vim/settings', '*.vim'), '\n')
 	exe 'source' fpath
@@ -235,6 +236,8 @@ com! JSONFormat %!python -m json.tool
 " ==================== YouCompleteMe ====================
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 
 " ==================== Fugitive ====================
@@ -260,8 +263,12 @@ au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <Leader>d <Plug>(go-doc)
 
 " ================= UltiSnips ====================
-let g:UltiSnipsExpandTrigger="<c-j>"
+" let g:UltiSnipsExpandTrigger="<c-j>"
 au FileType go UltiSnipsAddFiletypes go.go
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
 
 " ============= Leader Commands ==================
 nmap <Leader>m :BuffergatorToggle<cr>
@@ -282,7 +289,6 @@ set t_Co=256
 
 au BufRead,BufNewFile *.go set filetype=go
 au BufRead,BufNewFile *.coffee set filetype=coffee
-au BufRead,BufNewFile *.html set filetype=html
 
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 
@@ -310,3 +316,5 @@ autocmd BufWritePre * :%s/\s\+$//e
 " unmap <Leader>cc
 map <Leader>cc :Commentary<cr>
 autocmd FileType go set commentstring=//\ %s
+
+au BufRead,BufNewFile *.html set filetype=html
